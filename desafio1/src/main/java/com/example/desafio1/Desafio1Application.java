@@ -18,7 +18,6 @@ import com.example.desafio1.entities.ContratoServiceI;
 
 @SpringBootApplication
 public class Desafio1Application implements CommandLineRunner {
-//jose.joaquin.ruiz.alvarez@nttdata.com
 	@Autowired
 	private ClienteServiceI clienteService;
 
@@ -33,10 +32,10 @@ public class Desafio1Application implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		List<Contrato> listaContratos = new ArrayList<>();
 		
-		String entrada1 = "2027/07/25"; 
-		String entrada2 = "2018/03/14"; 
-		String entrada3 = "2017/11/11"; 
-		String entrada4 = "2019/12/19"; 
+		String entrada1 = "2027-07-25"; 
+		String entrada2 = "2018-03-14"; 
+		String entrada3 = "2017-11-11"; 
+		String entrada4 = "2019-12-19"; 
 		DateFormat format = new SimpleDateFormat("YYYY-MM-DD"); 
 		Date fecha = format.parse(entrada1);
 		Date fecha2 = format.parse(entrada2);
@@ -50,7 +49,6 @@ public class Desafio1Application implements CommandLineRunner {
 		cc.setFechaCaducidad(fecha);
 		cc.setFechaVigencia(fecha2);
 		
-		contratoService.insertarContrato(cc);
 		
 		Contrato cc2 = new Contrato();
 		cc2.setPrecio(170.5);
@@ -58,9 +56,8 @@ public class Desafio1Application implements CommandLineRunner {
 		cc2.setFechaCaducidad(fecha3);
 		cc2.setFechaVigencia(fecha4);
 		
-		//contratoService.insertarContrato(cc2);
 		
-		listaContratos.add(cc);
+		
 		
 		Cliente c = new Cliente();
 
@@ -68,23 +65,34 @@ public class Desafio1Application implements CommandLineRunner {
 		c.setApellido1("Ramirez");
 		c.setApellido2("Montoya");
 		c.setDni("55500000I");
+		
+		
+	    
+	    cc.setCliente(c);
+//		Cliente c2 = new Cliente();
+//
+//		c2.setNombre("Luis");
+//		c2.setApellido1("Gago");
+//		c2.setApellido2("Gimenez");
+//		c2.setDni("00000000I");
+		
+		
+		cc2.setCliente(c);
+		listaContratos.add(cc);
+		
+		listaContratos.add(cc2);
+		c.setListaContratos(listaContratos);
+		//c2.setListaContratos(listaContratos);
+		
 		clienteService.insertarCliente(c);
+		//clienteService.insertarCliente(c2);
 		
-	    c.setListaContratos(listaContratos);
-		
-		Cliente c2 = new Cliente();
-
-		c2.setNombre("Luis");
-		c2.setApellido1("Gago");
-		c2.setApellido2("Gimenez");
-		c2.setDni("00000000I");
-		clienteService.insertarCliente(c2);
 		
 		
 		//--------------------------------------------------------------------------------------------------------------------
 		
 		
-		Cliente client = clienteService.searchClienteById((long) 2);
+		Cliente client = clienteService.searchClienteById((long) 1);
 
 		System.out.println("- - - - - -         - - - - - -                - - - - - -");
 		System.out.println(client.getNombre());
